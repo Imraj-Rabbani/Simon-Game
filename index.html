@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Simon-Game</title>
+  </head>
+  <body id="target" class="full-body bg-blue-900 w-full h-full">
+    <div>
+      <h1
+        class="heading font-mono text-[50px] lg:text-[80px] h-[20%] font-bold text-[#fef2c0] w-full text-center pt-[40px]  lg:truncate"
+      >
+        Press A Key to Start
+    </h1>
+      <div class="w-full h-[620px]">
+        <div
+          class="container-one w-full h-1/2 flex flex-col space-y-10 space-x-10 items-center lg:flex-row 
+          lg:justify-center lg:items-end"
+        >
+          <div></div>
+          <div id="green"
+            class="btn green Box-one bg-[#008001] w-[130px] lg:w-[15%] h-[60%] border-8 border-black rounded-3xl"
+          >
+          </div>
+          <div id="red"
+            class="btn red Box-two bg-[#ff0000] w-[130px] lg:w-[15%] h-[60%] border-8 border-black rounded-3xl"
+          >
+          </div>
+        </div>
+        <div
+          class="container-two w-full h-1/2 flex flex-col space-y-10 space-x-10 items-center lg:flex-row 
+          lg:justify-center lg:items-start "
+        >
+          <div></div>
+          <div id="yellow"
+            class="btn yellow Box-three bg-[#ffff00] w-[130px] lg:w-[15%] h-[60%] border-8 border-black rounded-3xl"
+          >
+          </div>
+          <div id="blue"
+            class="btn blue Box-four bg-[#0000ff] w-[130px] lg:w-[15%] h-[60%] border-8 border-black rounded-3xl"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
