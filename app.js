@@ -1,57 +1,66 @@
-color = ["green", "red", "yellow", "blue"];
-pattern = []; //for storing the computer generated pattern
-userPattern = []; //for storing the user generated pattern
+const colors = ["green", "red", "yellow", "blue"];
+let pattern = [];
+var btn = $(".btn");
+let idx = 0;
 
-$(document).on("keydown", function () {
-  nextSequence();
+//Function that listens to a key being pressed and initiates the game
+$(document).ready(function () {
+  $(document).keypress(nextSequence);
 });
 
+//litting a random button
 const nextSequence = () => {
-  let randint = Math.floor(Math.random() * 4);
-  pattern.push(color[randint]);
-  console.log(pattern, "pattern");
-  $(`#${color[randint]}`).fadeOut(100).fadeIn(100);
-  var audio = new Audio(`sounds/${color[randint]}.mp3`);
-  audio.play();
+  idx = 0;
+  const randInt = Math.floor(Math.random() * 4);
+  pattern.push(colors[randInt]);
+  console.log(pattern);
+  pattern.forEach((color, index) => {
+    setTimeout(() => {
+      $(`#${color}`).fadeOut(100).fadeIn(100);
+      var audio = new Audio(`sounds/${color}.mp3`);
+      audio.play();
+    }, 500 * index);
+  });
 };
 
-$(".btn").on("click", function () {
-  userPattern.push(this.id);
-
-  $(`#${this.id}`).fadeOut(100).fadeIn(100);
-
-  var audio = new Audio(`sounds/${this.id}.mp3`);
+//Checking if the user's pattern matches with the generated one
+btn.click(function () {
+  const color = $(this).attr("id");
+  $(`#${color}`).fadeOut(100).fadeIn(100);
+  var audio = new Audio(`sounds/${color}.mp3`);
   audio.play();
-
-  total = pattern.length;
-  flag = true
-
-  if (total === userPattern.length) {
-    //without this condition the for loop begins before taking all the input from the user
-    for (let i = 0; i < total; i++) {
-
-      if (pattern[i] === userPattern[i]) {
-
-      } else {
-        restart();
-        flag = false;
-        break;
-      }
+  if (idx < pattern.length - 1) {
+    if ($(this).attr("id") == pattern[idx]) {
+      idx++;
+    } else {
+      console.log(idx, $(this).attr("id"));
+      restart();
     }
-
-    if (flag) {
-      $(":header").text(`Level ${pattern.length}`)
-      setTimeout(nextSequence, 1000);
-      userPattern = [];
+  } else {
+    if ($(this).attr("id") == pattern[idx]) {
+      $(".heading").text(
+        `Congrats. You guessed it Corrrectly. Onto to level ${
+          pattern.length + 1
+        }`
+      );
+      $(".heading")
+        .removeClass("text-[50px] lg:text-[80px]")
+        .addClass("text-[25px] lg:text-[40px]");
+    } else {
+      restart();
     }
+    idx = 0;
+    setTimeout(nextSequence, 1000);
   }
 });
 
+//When users gives a wrong color
 const restart = () => {
-  $(":header").text(`Press any key to restart`)
-
-  userPattern = [];
-  pattern = [];
   var audio = new Audio(`sounds/wrong.mp3`);
+  $(".heading").text(
+    `Oopies. It was not the correct guess. Press a key to play again`
+  );
   audio.play();
+  idx = 0;
+  pattern = [];
 };
